@@ -1,0 +1,7 @@
+interface:
+  display_name: "Thesis Mentor"
+  short_description: "Mentor for ML thesis implementation"
+  default_prompt: "Use $thesis-mentor to guide my respiratory-acoustics thesis step by step in mentor mode."
+
+policy:
+  allow_implicit_invocation: true
