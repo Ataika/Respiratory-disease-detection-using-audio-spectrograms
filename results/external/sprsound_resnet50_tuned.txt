@@ -1,0 +1,24 @@
+SPRSound external validation (ICBHI-trained ResNet50, no retraining)
+Checkpoint: results/checkpoints/final_resnet50_tuned_best.pth
+Recordings evaluated: 1772
+
+Accuracy:  0.2314
+Macro F1:  0.1874
+
+Confusion matrix (rows=true, cols=pred) [normal, crackle, wheeze, both]:
+  [159, 1064, 10, 70]
+  [9, 227, 3, 9]
+  [16, 81, 11, 18]
+  [7, 69, 6, 13]
+
+              precision    recall  f1-score   support
+
+      normal     0.8325    0.1220    0.2129      1303
+     crackle     0.1575    0.9153    0.2688       248
+      wheeze     0.3667    0.0873    0.1410       126
+        both     0.1182    0.1368    0.1268        95
+
+    accuracy                         0.2314      1772
+   macro avg     0.3687    0.3154    0.1874      1772
+weighted avg     0.6666    0.2314    0.2110      1772
+

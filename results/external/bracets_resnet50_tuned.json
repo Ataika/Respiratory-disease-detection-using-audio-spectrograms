@@ -3,17 +3,17 @@
   "n_recordings_evaluated": 3291,
   "n_healthy": 528,
   "n_pathological": 2763,
-  "accuracy": 0.4546,
-  "macro_f1": 0.4038,
-  "auroc_abnormal": 0.4628,
+  "accuracy": 0.3804,
+  "macro_f1": 0.3664,
+  "auroc_abnormal": 0.5092,
   "confusion_matrix_rows_true_cols_pred": [
     [
-      268,
-      260
+      381,
+      147
     ],
     [
-      1535,
-      1228
+      1892,
+      871
     ]
   ],
   "binary_label_names": [

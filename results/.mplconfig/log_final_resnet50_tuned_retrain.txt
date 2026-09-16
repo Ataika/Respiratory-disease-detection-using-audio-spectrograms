@@ -1,0 +1,31 @@
+Epoch 1/10 | train_loss=1.0622 | train_acc=0.5368 | train_f1=0.5343 | val_loss=1.2666 | val_acc=0.4638 | val_f1=0.3998
+Epoch 2/10 | train_loss=0.6537 | train_acc=0.7392 | train_f1=0.7393 | val_loss=1.2380 | val_acc=0.5594 | val_f1=0.4505
+Epoch 3/10 | train_loss=0.4277 | train_acc=0.8413 | train_f1=0.8415 | val_loss=1.2249 | val_acc=0.5800 | val_f1=0.4575
+Epoch 4/10 | train_loss=0.3158 | train_acc=0.8863 | train_f1=0.8846 | val_loss=1.3120 | val_acc=0.5666 | val_f1=0.4313
+Epoch 5/10 | train_loss=0.2358 | train_acc=0.9192 | train_f1=0.9179 | val_loss=1.6013 | val_acc=0.5737 | val_f1=0.4190
+Early stopping triggered at epoch 5. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: resnet50
+Device: mps
+Best checkpoint: results/checkpoints/final_resnet50_tuned_best.pth
+Curves plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_resnet50_tuned_best_curves.png
+Confusion matrix plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_resnet50_tuned_best_confusion_matrix.png
+Per-class report: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_resnet50_tuned_best_per_class.txt
+Per-class JSON: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_resnet50_tuned_best_per_class.json
+Results CSV: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/final_experiment_registry.csv
+Best epoch: 3
+Best val loss: 1.2249
+Best val acc: 0.5800
+Best val macro F1: 0.4575
+Final train loss: 0.2358
+Final train acc: 0.9192
+Final train macro F1: 0.9179
+Final val loss: 1.6013
+Final val acc: 0.5737
+Final val macro F1: 0.4190
+Best val confusion matrix:
+[421, 91, 42, 6]
+[154, 136, 16, 5]
+[57, 10, 81, 16]
+[19, 10, 44, 11]

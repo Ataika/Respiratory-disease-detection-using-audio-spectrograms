@@ -36,40 +36,48 @@ def parse_spr_sound(dataset_path: str | Path) -> list[dict]:
     """
     Parse SPRSound into one record per audio file.
 
-    This dataset is used as an unseen evaluation set.
+    This dataset is used as an unseen evaluation set. Both the "train" and
+    "valid" classification splits published by SPRSound are read here,
+    since neither was used for training in this thesis — both are unseen
+    data as far as our ICBHI-trained models are concerned.
     """
     dataset_root = Path(dataset_path)
-    wav_dir = dataset_root / "train_classification_wav"
-    json_dir = dataset_root / "train_classification_json"
-
     records: list[dict] = []
 
-    for wav_path in sorted(wav_dir.glob("*.wav")):
-        recording_id = wav_path.stem
-        json_path = json_dir / f"{recording_id}.json"
+    for split_name in ("train_classification", "valid_classification"):
+        wav_dir = dataset_root / f"{split_name}_wav"
+        json_dir = dataset_root / f"{split_name}_json"
 
-        if not json_path.exists():
+        if not wav_dir.exists():
             continue
 
-        with json_path.open("r", encoding="utf-8", errors="ignore") as handle:
-            metadata = json.load(handle)
+        for wav_path in sorted(wav_dir.glob("*.wav")):
+            recording_id = wav_path.stem
+            json_path = json_dir / f"{recording_id}.json"
 
-        raw_label = str(metadata.get("record_annotation", "normal")).strip()
-        label = _normalize_spr_label(raw_label)
+            if not json_path.exists():
+                continue
 
-        if label is None:
-            continue
+            with json_path.open("r", encoding="utf-8", errors="ignore") as handle:
+                metadata = json.load(handle)
 
-        records.append(
-            {
-                "dataset": "spr_sound",
-                "split": "unseen",
-                "patient_id": recording_id,
-                "recording_id": recording_id,
-                "wav_path": str(wav_path),
-                "label": label,
-                "raw_label": raw_label,
-            }
-        )
+            raw_label = str(metadata.get("record_annotation", "normal")).strip()
+            label = _normalize_spr_label(raw_label)
+
+            if label is None:
+                continue
+
+            records.append(
+                {
+                    "dataset": "spr_sound",
+                    "split": "unseen",
+                    "source_split": split_name,
+                    "patient_id": recording_id,
+                    "recording_id": recording_id,
+                    "wav_path": str(wav_path),
+                    "label": label,
+                    "raw_label": raw_label,
+                }
+            )
 
     return records

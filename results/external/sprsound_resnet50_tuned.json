@@ -1,0 +1,39 @@
+{
+  "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
+  "n_recordings_evaluated": 1772,
+  "accuracy": 0.2314,
+  "macro_f1": 0.1874,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      159,
+      1064,
+      10,
+      70
+    ],
+    [
+      9,
+      227,
+      3,
+      9
+    ],
+    [
+      16,
+      81,
+      11,
+      18
+    ],
+    [
+      7,
+      69,
+      6,
+      13
+    ]
+  ],
+  "class_names": [
+    "normal",
+    "crackle",
+    "wheeze",
+    "both"
+  ],
+  "note": "ICBHI-trained ResNet50, no retraining, no label remapping (SPRSound already uses the unified 4-class scheme); first 5s window per recording."
+}

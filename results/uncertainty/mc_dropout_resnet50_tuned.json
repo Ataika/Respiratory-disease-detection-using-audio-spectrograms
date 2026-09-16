@@ -1,0 +1,27 @@
+{
+  "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
+  "n_passes": 30,
+  "n_val_samples": 1119,
+  "accuracy": 0.5782,
+  "mean_entropy_correct": 0.5271,
+  "mean_entropy_wrong": 0.6445,
+  "n_wrong": 472,
+  "per_class_entropy": {
+    "normal": {
+      "n": 560,
+      "mean_entropy": 0.5706
+    },
+    "crackle": {
+      "n": 311,
+      "mean_entropy": 0.5848
+    },
+    "wheeze": {
+      "n": 164,
+      "mean_entropy": 0.5543
+    },
+    "both": {
+      "n": 84,
+      "mean_entropy": 0.6308
+    }
+  }
+}

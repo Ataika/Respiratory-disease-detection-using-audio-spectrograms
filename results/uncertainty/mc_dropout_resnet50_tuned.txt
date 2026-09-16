@@ -1,0 +1,16 @@
+MC Dropout uncertainty — tuned ResNet50 on ICBHI validation set
+Checkpoint: results/checkpoints/final_resnet50_tuned_best.pth
+Passes per sample: 30
+Validation samples: 1119
+
+Accuracy: 0.5782
+Mean predictive entropy | correct predictions:   0.5271
+Mean predictive entropy | incorrect predictions: 0.6445
+
+Per-class mean entropy:
+  normal: 0.5706 (n=560)
+  crackle: 0.5848 (n=311)
+  wheeze: 0.5543 (n=164)
+  both: 0.6308 (n=84)
+
+Uncertainty is informative for this model: incorrect predictions have higher predictive entropy than correct ones.

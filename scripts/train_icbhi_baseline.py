@@ -367,6 +367,13 @@ def main() -> None:
     Run the ICBHI baseline experiment.
     """
     args = parse_args()
+    # `--seed` previously only drove the patient-level split (via
+    # create_splits). Model weight init, WeightedRandomSampler draws, and
+    # SpecAugment masks all read torch's global RNG, which was never seeded
+    # here — so two runs with the same --seed were not actually
+    # reproducible. Seeding it makes --seed control the *entire* run.
+    torch.manual_seed(args.seed)
+
     if torch.cuda.is_available():
         device = "cuda"
     elif torch.backends.mps.is_available():
