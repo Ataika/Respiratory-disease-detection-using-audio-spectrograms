@@ -1,0 +1,126 @@
+{
+  "per_model": {
+    "resnet50": {
+      "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
+      "n_samples": 1119,
+      "icbhi_score": {
+        "sensitivity_se": 0.407871198568873,
+        "specificity_sp": 0.7517857142857143,
+        "icbhi_score": 0.5798284564272936
+      },
+      "auc_roc": {
+        "macro_auc_ovr": 0.7429764375141468,
+        "per_class_auc_ovr": {
+          "normal": 0.726568489649885,
+          "crackle": 0.7363821591162332,
+          "wheeze": 0.8327991316562381,
+          "both": 0.6761559696342306
+        }
+      },
+      "ece": {
+        "ece": 0.18952563346444334,
+        "n_bins": 10,
+        "bins": [
+          {
+            "range": [
+              0.0,
+              0.1
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.2,
+              0.3
+            ],
+            "count": 1,
+            "avg_confidence": 0.2694,
+            "accuracy": 0.0
+          },
+          {
+            "range": [
+              0.3,
+              0.4
+            ],
+            "count": 14,
+            "avg_confidence": 0.3587,
+            "accuracy": 0.4286
+          },
+          {
+            "range": [
+              0.4,
+              0.5
+            ],
+            "count": 72,
+            "avg_confidence": 0.4603,
+            "accuracy": 0.2917
+          },
+          {
+            "range": [
+              0.5,
+              0.6
+            ],
+            "count": 153,
+            "avg_confidence": 0.5471,
+            "accuracy": 0.4771
+          },
+          {
+            "range": [
+              0.6,
+              0.7
+            ],
+            "count": 155,
+            "avg_confidence": 0.6492,
+            "accuracy": 0.5935
+          },
+          {
+            "range": [
+              0.7,
+              0.8
+            ],
+            "count": 172,
+            "avg_confidence": 0.7527,
+            "accuracy": 0.5756
+          },
+          {
+            "range": [
+              0.8,
+              0.9
+            ],
+            "count": 200,
+            "avg_confidence": 0.852,
+            "accuracy": 0.585
+          },
+          {
+            "range": [
+              0.9,
+              1.0
+            ],
+            "count": 352,
+            "avg_confidence": 0.956,
+            "accuracy": 0.6847
+          }
+        ]
+      },
+      "bootstrap_macro_f1": {
+        "point_estimate": 0.4574837504426585,
+        "ci_95_low": 0.42317203547212506,
+        "ci_95_high": 0.4930206617964301,
+        "n_bootstrap": 2000,
+        "bootstrap_std": 0.01783444388878091
+      }
+    }
+  },
+  "pairwise": {}
+}
