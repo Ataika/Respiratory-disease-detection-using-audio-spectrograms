@@ -1,0 +1,11 @@
+BRACETS external validation (ICBHI-trained ResNet50, no retraining)
+Checkpoint: results/checkpoints/final_resnet50_tuned_best.pth
+Recordings evaluated: 3291 (healthy=528, pathological=2763)
+
+Accuracy:     0.4546
+Macro F1:     0.4038
+AUROC:        0.4628
+
+Confusion matrix (rows=true, cols=pred) [healthy, pathological]:
+  [268, 260]
+  [1535, 1228]

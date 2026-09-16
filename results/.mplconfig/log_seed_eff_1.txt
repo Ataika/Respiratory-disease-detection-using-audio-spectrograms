@@ -1,0 +1,30 @@
+Epoch 1/10 | train_loss=1.1674 | train_acc=0.4709 | train_f1=0.4699 | val_loss=1.2337 | val_acc=0.4552 | val_f1=0.3878
+Epoch 2/10 | train_loss=0.7939 | train_acc=0.6760 | train_f1=0.6757 | val_loss=1.1535 | val_acc=0.5178 | val_f1=0.4188
+Epoch 3/10 | train_loss=0.5989 | train_acc=0.7684 | train_f1=0.7675 | val_loss=1.2977 | val_acc=0.4964 | val_f1=0.4183
+Epoch 4/10 | train_loss=0.4679 | train_acc=0.8200 | train_f1=0.8192 | val_loss=1.3614 | val_acc=0.5135 | val_f1=0.4002
+Early stopping triggered at epoch 4. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: efficientnet_b3
+Device: mps
+Best checkpoint: results/checkpoints/tmp_seed.pth
+Curves plot: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/tmp_seed_curves.png
+Confusion matrix plot: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/tmp_seed_confusion_matrix.png
+Per-class report: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/tmp_seed_per_class.txt
+Per-class JSON: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/tmp_seed_per_class.json
+Results CSV: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/seed_robustness.csv
+Best epoch: 2
+Best val loss: 1.1535
+Best val acc: 0.5178
+Best val macro F1: 0.4188
+Final train loss: 0.4679
+Final train acc: 0.8200
+Final train macro F1: 0.8192
+Final val loss: 1.3614
+Final val acc: 0.5135
+Final val macro F1: 0.4002
+Best val confusion matrix:
+[250, 116, 44, 17]
+[19, 58, 3, 0]
+[46, 25, 38, 22]
+[12, 7, 28, 18]

@@ -1,0 +1,20 @@
+# Install PyTorch separately from the official CUDA wheel index first.
+# Example:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+numpy==2.4.3
+pandas==3.0.1
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.8
+seaborn==0.13.2
+librosa==0.11.0
+soundfile==0.13.1
+noisereduce==3.0.3
+audiomentations==0.43.1
+timm==1.0.25
+huggingface_hub==1.7.1
+tqdm==4.67.3
+PyYAML==6.0.3
+openpyxl==3.1.5
+requests==2.32.5

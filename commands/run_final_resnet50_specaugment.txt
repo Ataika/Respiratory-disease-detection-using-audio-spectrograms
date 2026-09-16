@@ -1,0 +1,1 @@
+cd "/Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms" && MPLCONFIGDIR=results/.mplconfig venv/bin/python scripts/train_icbhi_baseline.py --model-name resnet50 --epochs 10 --batch-size 8 --learning-rate 1e-4 --use-spec-augment --checkpoint-path results/checkpoints/final_resnet50_specaugment_best.pth

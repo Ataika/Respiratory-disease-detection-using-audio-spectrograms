@@ -1,2 +1,15 @@
 venv/
 *.dylib
+__pycache__/
+.pytest_cache/
+.DS_Store
+.idea/
+*.pyc
+.claude/
+results/checkpoints/*.pth
+data/raw/*
+data/processed/*
+data/spectrograms/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/spectrograms/.gitkeep

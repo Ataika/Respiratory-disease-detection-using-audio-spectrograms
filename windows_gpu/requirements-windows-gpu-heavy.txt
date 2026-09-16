@@ -1,0 +1,9 @@
+-r ../requirements-windows-min.txt
+
+# Extra dependencies for the heavy audio representation branch.
+# AudioMAE currently uses timm + Hugging Face Hub through the main pipeline.
+# HuBERT / future AST integration will typically need the libraries below.
+transformers
+accelerate
+safetensors
+sentencepiece

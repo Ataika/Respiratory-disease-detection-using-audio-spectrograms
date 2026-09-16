@@ -1,0 +1,5 @@
+=== resnet50 seed=2 Sun Jun 28 13:15:15 CEST 2026 ===
+=== resnet50 seed=3 Sun Jun 28 13:29:23 CEST 2026 ===
+=== efficientnet_b3 seed=2 Sun Jun 28 14:08:03 CEST 2026 ===
+=== efficientnet_b3 seed=3 Sun Jun 28 14:49:42 CEST 2026 ===
+REST_MULTISEED_DONE Sun Jun 28 15:19:17 CEST 2026

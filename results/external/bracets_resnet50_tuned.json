@@ -1,0 +1,24 @@
+{
+  "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
+  "n_recordings_evaluated": 3291,
+  "n_healthy": 528,
+  "n_pathological": 2763,
+  "accuracy": 0.4546,
+  "macro_f1": 0.4038,
+  "auroc_abnormal": 0.4628,
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      268,
+      260
+    ],
+    [
+      1535,
+      1228
+    ]
+  ],
+  "binary_label_names": [
+    "healthy",
+    "pathological"
+  ],
+  "note": "ICBHI-trained ResNet50, no retraining; first 5s window per recording; normal->healthy, crackle/wheeze/both->pathological."
+}

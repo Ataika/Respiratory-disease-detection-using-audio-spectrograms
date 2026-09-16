@@ -1,0 +1,1 @@
+cd "/Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms" && zsh results/.mplconfig/run_finals_3to5.sh

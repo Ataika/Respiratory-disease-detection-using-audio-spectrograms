@@ -1,0 +1,55 @@
+{
+  "model_name": "resnet50",
+  "checkpoint_path": "results/checkpoints/smoke_resnet50_registry_test.pth",
+  "classification_report": {
+    "normal": {
+      "precision": 0.7202505219206681,
+      "recall": 0.6160714285714286,
+      "f1-score": 0.6641000962463908,
+      "support": 560.0
+    },
+    "crackle": {
+      "precision": 0.46808510638297873,
+      "recall": 0.6366559485530546,
+      "f1-score": 0.5395095367847411,
+      "support": 311.0
+    },
+    "wheeze": {
+      "precision": 0.582089552238806,
+      "recall": 0.47560975609756095,
+      "f1-score": 0.5234899328859061,
+      "support": 164.0
+    },
+    "both": {
+      "precision": 0.1927710843373494,
+      "recall": 0.19047619047619047,
+      "f1-score": 0.19161676646706588,
+      "support": 84.0
+    },
+    "accuracy": 0.5692582663092046,
+    "macro avg": {
+      "precision": 0.49079906621995056,
+      "recall": 0.4797033309245587,
+      "f1-score": 0.47967908309602597,
+      "support": 1119.0
+    },
+    "weighted avg": {
+      "precision": 0.5903219106453815,
+      "recall": 0.5692582663092046,
+      "f1-score": 0.57339738803803,
+      "support": 1119.0
+    }
+  },
+  "target_distribution": {
+    "normal": 560,
+    "crackle": 311,
+    "wheeze": 164,
+    "both": 84
+  },
+  "prediction_distribution": {
+    "normal": 479,
+    "crackle": 423,
+    "wheeze": 134,
+    "both": 83
+  }
+}

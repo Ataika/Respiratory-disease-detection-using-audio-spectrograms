@@ -1,0 +1,31 @@
+Model: resnet50
+Checkpoint: results/checkpoints/final_resnet50_tuned_best.pth
+
+Evaluation epoch: 1
+Best val loss: 1.1935
+Best val acc: 0.5407
+Best val macro F1: 0.4617
+
+              precision    recall  f1-score   support
+
+      normal     0.7387    0.6107    0.6686       560
+     crackle     0.5445    0.5113    0.5274       311
+      wheeze     0.4076    0.4573    0.4310       164
+        both     0.1611    0.3452    0.2197        84
+
+    accuracy                         0.5407      1119
+   macro avg     0.4630    0.4811    0.4617      1119
+weighted avg     0.5928    0.5407    0.5608      1119
+
+
+Target distribution:
+normal: 560
+crackle: 311
+wheeze: 164
+both: 84
+
+Prediction distribution:
+normal: 463
+crackle: 292
+wheeze: 184
+both: 180

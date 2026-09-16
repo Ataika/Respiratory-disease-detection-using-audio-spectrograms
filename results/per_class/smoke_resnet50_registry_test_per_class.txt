@@ -1,0 +1,26 @@
+Model: resnet50
+Checkpoint: results/checkpoints/smoke_resnet50_registry_test.pth
+
+              precision    recall  f1-score   support
+
+      normal     0.7203    0.6161    0.6641       560
+     crackle     0.4681    0.6367    0.5395       311
+      wheeze     0.5821    0.4756    0.5235       164
+        both     0.1928    0.1905    0.1916        84
+
+    accuracy                         0.5693      1119
+   macro avg     0.4908    0.4797    0.4797      1119
+weighted avg     0.5903    0.5693    0.5734      1119
+
+
+Target distribution:
+normal: 560
+crackle: 311
+wheeze: 164
+both: 84
+
+Prediction distribution:
+normal: 479
+crackle: 423
+wheeze: 134
+both: 83

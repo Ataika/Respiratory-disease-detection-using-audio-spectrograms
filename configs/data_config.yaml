@@ -1,0 +1,48 @@
+# configs/data_config.yaml
+  data:
+    root: "data/raw/datasets"   # корневая папка всех датасетов
+
+    datasets:
+      icbhi:
+        path: "archive/Respiratory_Sound_Database/Respiratory_Sound_Database"
+        audio_dir: "audio_and_txt_files"
+        diagnosis_csv: "patient_diagnosis.csv"
+
+      hf_lung:
+        path: "HF_LUNG_V1"
+
+      kauh:
+        path: "jwyy9np4gv-3"
+        audio_dir: "Audio Files"
+        annotation: "Data annotation.xlsx"
+
+      bracets:
+        path: "BRACETS"
+        audio_dir: "Data"
+        metadata: "Metadata/Metadata.txt"
+
+      spr_sound:
+        path: "SPRSound-main/Classification"
+
+  preprocessing:
+    sample_rate_cnn: 22050   # частота дискретизации для CNN (Hz)
+    sample_rate_ast: 16000   # для AST — он обучен на 16kHz
+    window_size_sec: 5.0     # длина одного окна в секундах
+    hop_size_sec: 2.5        # шаг окна (50% overlap = перекрытие)
+    n_mels: 128              # количество mel-фильтров в спектрограмме
+    hop_length: 512          # шаг в сэмплах для STFT
+    n_fft: 2048              # размер окна Фурье
+
+  augmentation:
+    time_mask_max: 80    # максимум фреймов которые маскируем по времени
+    freq_mask_max: 30    # максимум бинов которые маскируем по частоте
+
+  training:
+    val_split: 0.15   # 15% данных идут в валидацию
+    random_seed: 42   # фиксируем случайность (42 — стандарт в ML)
+
+  labels:
+    normal: 0
+    crackle: 1
+    wheeze: 2
+    both: 3

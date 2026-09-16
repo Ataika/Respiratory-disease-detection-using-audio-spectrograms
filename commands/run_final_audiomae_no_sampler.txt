@@ -1,0 +1,1 @@
+cd "/Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms" && MPLCONFIGDIR=results/.mplconfig venv/bin/python scripts/train_icbhi_baseline.py --model-name audiomae --epochs 8 --batch-size 4 --learning-rate 5e-5 --disable-weighted-sampler --checkpoint-path results/checkpoints/final_audiomae_no_sampler_best.pth

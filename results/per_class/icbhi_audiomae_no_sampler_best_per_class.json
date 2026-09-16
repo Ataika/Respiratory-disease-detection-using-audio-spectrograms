@@ -1,0 +1,55 @@
+{
+  "model_name": "audiomae",
+  "checkpoint_path": "results/checkpoints/icbhi_audiomae_no_sampler_best.pth",
+  "classification_report": {
+    "normal": {
+      "precision": 0.6458966565349544,
+      "recall": 0.7589285714285714,
+      "f1-score": 0.6978653530377669,
+      "support": 560.0
+    },
+    "crackle": {
+      "precision": 0.5659340659340659,
+      "recall": 0.3311897106109325,
+      "f1-score": 0.4178498985801217,
+      "support": 311.0
+    },
+    "wheeze": {
+      "precision": 0.47413793103448276,
+      "recall": 0.6707317073170732,
+      "f1-score": 0.5555555555555556,
+      "support": 164.0
+    },
+    "both": {
+      "precision": 0.2127659574468085,
+      "recall": 0.11904761904761904,
+      "f1-score": 0.15267175572519084,
+      "support": 84.0
+    },
+    "accuracy": 0.579088471849866,
+    "macro avg": {
+      "precision": 0.47468365273757795,
+      "recall": 0.469974402101049,
+      "f1-score": 0.45598564072465875,
+      "support": 1119.0
+    },
+    "weighted avg": {
+      "precision": 0.5659862227705595,
+      "recall": 0.579088471849866,
+      "f1-score": 0.5582586727002631,
+      "support": 1119.0
+    }
+  },
+  "target_distribution": {
+    "normal": 560,
+    "crackle": 311,
+    "wheeze": 164,
+    "both": 84
+  },
+  "prediction_distribution": {
+    "normal": 658,
+    "crackle": 182,
+    "wheeze": 232,
+    "both": 47
+  }
+}

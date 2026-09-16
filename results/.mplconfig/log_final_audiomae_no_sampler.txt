@@ -1,0 +1,32 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Epoch 1/8 | train_loss=1.0931 | train_acc=0.5319 | train_f1=0.2803 | val_loss=1.0601 | val_acc=0.5228 | val_f1=0.3482
+Epoch 2/8 | train_loss=0.9343 | train_acc=0.6030 | train_f1=0.4413 | val_loss=1.0737 | val_acc=0.5827 | val_f1=0.3756
+Epoch 3/8 | train_loss=0.7897 | train_acc=0.6761 | train_f1=0.5552 | val_loss=0.9447 | val_acc=0.5907 | val_f1=0.4838
+Epoch 4/8 | train_loss=0.7282 | train_acc=0.7074 | train_f1=0.6101 | val_loss=1.2712 | val_acc=0.4558 | val_f1=0.4083
+Epoch 5/8 | train_loss=0.5898 | train_acc=0.7683 | train_f1=0.6966 | val_loss=1.1186 | val_acc=0.5943 | val_f1=0.4183
+Early stopping triggered at epoch 5. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: audiomae
+Device: mps
+Best checkpoint: results/checkpoints/final_audiomae_no_sampler_best.pth
+Curves plot: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_best_curves.png
+Confusion matrix plot: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_best_confusion_matrix.png
+Per-class report: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_best_per_class.txt
+Per-class JSON: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_best_per_class.json
+Results CSV: /Users/ataika/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/final_experiment_registry.csv
+Best epoch: 3
+Best val loss: 0.9447
+Best val acc: 0.5907
+Best val macro F1: 0.4838
+Final train loss: 0.5898
+Final train acc: 0.7683
+Final train macro F1: 0.6966
+Final val loss: 1.1186
+Final val acc: 0.5943
+Final val macro F1: 0.4183
+Best val confusion matrix:
+[435, 88, 23, 14]
+[164, 129, 2, 16]
+[44, 11, 77, 32]
+[21, 8, 35, 20]

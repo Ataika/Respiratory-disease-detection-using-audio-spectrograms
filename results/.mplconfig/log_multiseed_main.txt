@@ -1,0 +1,4 @@
+=== resnet50 seed=42  Sun Jun 28 04:52:25 CEST 2026 ===
+=== resnet50 seed=0  Sun Jun 28 06:25:52 CEST 2026 ===
+=== resnet50 seed=1  Sun Jun 28 08:04:56 CEST 2026 ===
+=== resnet50 seed=2  Sun Jun 28 08:39:59 CEST 2026 ===

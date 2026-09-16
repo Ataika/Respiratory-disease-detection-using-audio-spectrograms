@@ -1,0 +1,31 @@
+Model: efficientnet_b3
+Checkpoint: results/checkpoints/tmp_seed.pth
+
+Evaluation epoch: 2
+Best val loss: 1.1611
+Best val acc: 0.5240
+Best val macro F1: 0.3538
+
+              precision    recall  f1-score   support
+
+      normal     0.7389    0.5997    0.6620       637
+     crackle     0.2671    0.4933    0.3466       150
+      wheeze     0.3448    0.2400    0.2830       125
+        both     0.0893    0.2000    0.1235        25
+
+    accuracy                         0.5240       937
+   macro avg     0.3600    0.3833    0.3538       937
+weighted avg     0.5935    0.5240    0.5466       937
+
+
+Target distribution:
+normal: 637
+crackle: 150
+wheeze: 125
+both: 25
+
+Prediction distribution:
+normal: 517
+crackle: 277
+wheeze: 87
+both: 56

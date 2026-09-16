@@ -1,0 +1,26 @@
+Model: audiomae
+Checkpoint: results/checkpoints/icbhi_audiomae_no_sampler_best.pth
+
+              precision    recall  f1-score   support
+
+      normal     0.6459    0.7589    0.6979       560
+     crackle     0.5659    0.3312    0.4178       311
+      wheeze     0.4741    0.6707    0.5556       164
+        both     0.2128    0.1190    0.1527        84
+
+    accuracy                         0.5791      1119
+   macro avg     0.4747    0.4700    0.4560      1119
+weighted avg     0.5660    0.5791    0.5583      1119
+
+
+Target distribution:
+normal: 560
+crackle: 311
+wheeze: 164
+both: 84
+
+Prediction distribution:
+normal: 658
+crackle: 182
+wheeze: 232
+both: 47
