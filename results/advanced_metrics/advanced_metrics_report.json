@@ -1,5 +1,126 @@
 {
   "per_model": {
+    "audiomae": {
+      "checkpoint": "results/checkpoints/final_audiomae_no_sampler_best.pth",
+      "n_samples": 1119,
+      "icbhi_score": {
+        "sensitivity_se": 0.1556350626118068,
+        "specificity_sp": 0.8053571428571429,
+        "icbhi_score": 0.48049610273447485
+      },
+      "auc_roc": {
+        "macro_auc_ovr": 0.5708767609978206,
+        "per_class_auc_ovr": {
+          "normal": 0.6087496805520061,
+          "crackle": 0.6091775174301997,
+          "wheeze": 0.5303026433405695,
+          "both": 0.5352772026685071
+        }
+      },
+      "ece": {
+        "ece": 0.05396510241178661,
+        "n_bins": 10,
+        "bins": [
+          {
+            "range": [
+              0.0,
+              0.1
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.2,
+              0.3
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.3,
+              0.4
+            ],
+            "count": 192,
+            "avg_confidence": 0.3889,
+            "accuracy": 0.3958
+          },
+          {
+            "range": [
+              0.4,
+              0.5
+            ],
+            "count": 358,
+            "avg_confidence": 0.4347,
+            "accuracy": 0.3771
+          },
+          {
+            "range": [
+              0.5,
+              0.6
+            ],
+            "count": 233,
+            "avg_confidence": 0.5528,
+            "accuracy": 0.5193
+          },
+          {
+            "range": [
+              0.6,
+              0.7
+            ],
+            "count": 216,
+            "avg_confidence": 0.6527,
+            "accuracy": 0.5417
+          },
+          {
+            "range": [
+              0.7,
+              0.8
+            ],
+            "count": 91,
+            "avg_confidence": 0.7316,
+            "accuracy": 0.6813
+          },
+          {
+            "range": [
+              0.8,
+              0.9
+            ],
+            "count": 24,
+            "avg_confidence": 0.846,
+            "accuracy": 0.9167
+          },
+          {
+            "range": [
+              0.9,
+              1.0
+            ],
+            "count": 5,
+            "avg_confidence": 0.9296,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "bootstrap_macro_f1": {
+        "point_estimate": 0.2349620651460051,
+        "ci_95_low": 0.21945828709061393,
+        "ci_95_high": 0.25052151239165443,
+        "n_bootstrap": 2000,
+        "bootstrap_std": 0.007925378951088335
+      }
+    },
     "efficientnet_b3": {
       "checkpoint": "results/checkpoints/final_efficientnet_b3_tuned_best.pth",
       "n_samples": 1119,
@@ -244,6 +365,34 @@
     }
   },
   "pairwise": {
+    "audiomae_vs_efficientnet_b3": {
+      "mcnemar": {
+        "b_a_right_b_wrong": 181,
+        "c_a_wrong_b_right": 244,
+        "statistic": 9.044705882352941,
+        "p_value": 0.00263456609584356
+      },
+      "delong_normal_vs_abnormal": {
+        "auc_a": 0.6087496805520061,
+        "auc_b": 0.7545681063122924,
+        "z": -8.520350361423189,
+        "p_value": 0.0
+      }
+    },
+    "audiomae_vs_resnet50": {
+      "mcnemar": {
+        "b_a_right_b_wrong": 128,
+        "c_a_wrong_b_right": 239,
+        "statistic": 32.9700272479564,
+        "p_value": 9.359065744618533e-09
+      },
+      "delong_normal_vs_abnormal": {
+        "auc_a": 0.6087496805520061,
+        "auc_b": 0.726568489649885,
+        "z": -6.098416807064824,
+        "p_value": 1.0712413178737279e-09
+      }
+    },
     "efficientnet_b3_vs_resnet50": {
       "mcnemar": {
         "b_a_right_b_wrong": 175,
