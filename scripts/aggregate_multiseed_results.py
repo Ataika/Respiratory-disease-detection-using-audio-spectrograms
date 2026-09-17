@@ -33,6 +33,11 @@ RUNS = [
     ("efficientnet_b3", 1, "log_seed_eff_1.txt"),
     ("efficientnet_b3", 2, "log_seed_efficientnet_b3_2.txt"),
     ("efficientnet_b3", 3, "log_seed_efficientnet_b3_3.txt"),
+    ("audiomae", 42, "log_audiomae_overnight_main.txt"),
+    ("audiomae", 0, "log_seed_audiomae_0.txt"),
+    ("audiomae", 1, "log_seed_audiomae_1.txt"),
+    ("audiomae", 2, "log_seed_audiomae_2.txt"),
+    ("audiomae", 3, "log_seed_audiomae_3.txt"),
 ]
 
 FIELDS = {
