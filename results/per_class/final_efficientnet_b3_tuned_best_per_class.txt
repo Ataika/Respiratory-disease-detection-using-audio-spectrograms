@@ -1,21 +1,21 @@
 Model: efficientnet_b3
 Checkpoint: results/checkpoints/final_efficientnet_b3_tuned_best.pth
 
-Evaluation epoch: 1
-Best val loss: 1.0554
-Best val acc: 0.5273
-Best val macro F1: 0.4322
+Evaluation epoch: 2
+Best val loss: 1.0568
+Best val acc: 0.5371
+Best val macro F1: 0.4642
 
               precision    recall  f1-score   support
 
-      normal     0.7047    0.5411    0.6121       560
-     crackle     0.4644    0.6495    0.5416       311
-      wheeze     0.4405    0.4512    0.4458       164
-        both     0.1279    0.1310    0.1294        84
+      normal     0.7195    0.5679    0.6347       560
+     crackle     0.4907    0.5949    0.5378       311
+      wheeze     0.4132    0.4207    0.4169       164
+        both     0.2180    0.3452    0.2673        84
 
-    accuracy                         0.5273      1119
-   macro avg     0.4344    0.4432    0.4322      1119
-weighted avg     0.5559    0.5273    0.5319      1119
+    accuracy                         0.5371      1119
+   macro avg     0.4603    0.4822    0.4642      1119
+weighted avg     0.5734    0.5371    0.5483      1119
 
 
 Target distribution:
@@ -25,7 +25,7 @@ wheeze: 164
 both: 84
 
 Prediction distribution:
-normal: 430
-crackle: 435
-wheeze: 168
-both: 86
+normal: 442
+crackle: 377
+wheeze: 167
+both: 133

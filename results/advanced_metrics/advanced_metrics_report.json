@@ -1,5 +1,126 @@
 {
   "per_model": {
+    "efficientnet_b3": {
+      "checkpoint": "results/checkpoints/final_efficientnet_b3_tuned_best.pth",
+      "n_samples": 1119,
+      "icbhi_score": {
+        "sensitivity_se": 0.5062611806797853,
+        "specificity_sp": 0.5678571428571428,
+        "icbhi_score": 0.5370591617684641
+      },
+      "auc_roc": {
+        "macro_auc_ovr": 0.7772468796263112,
+        "per_class_auc_ovr": {
+          "normal": 0.7545681063122923,
+          "crackle": 0.7629254082964565,
+          "wheeze": 0.8134401736687524,
+          "both": 0.7780538302277432
+        }
+      },
+      "ece": {
+        "ece": 0.11391485970503949,
+        "n_bins": 10,
+        "bins": [
+          {
+            "range": [
+              0.0,
+              0.1
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.1,
+              0.2
+            ],
+            "count": 0,
+            "avg_confidence": null,
+            "accuracy": null
+          },
+          {
+            "range": [
+              0.2,
+              0.3
+            ],
+            "count": 2,
+            "avg_confidence": 0.2739,
+            "accuracy": 1.0
+          },
+          {
+            "range": [
+              0.3,
+              0.4
+            ],
+            "count": 61,
+            "avg_confidence": 0.365,
+            "accuracy": 0.2623
+          },
+          {
+            "range": [
+              0.4,
+              0.5
+            ],
+            "count": 157,
+            "avg_confidence": 0.4593,
+            "accuracy": 0.3631
+          },
+          {
+            "range": [
+              0.5,
+              0.6
+            ],
+            "count": 239,
+            "avg_confidence": 0.5512,
+            "accuracy": 0.4979
+          },
+          {
+            "range": [
+              0.6,
+              0.7
+            ],
+            "count": 240,
+            "avg_confidence": 0.6508,
+            "accuracy": 0.5
+          },
+          {
+            "range": [
+              0.7,
+              0.8
+            ],
+            "count": 190,
+            "avg_confidence": 0.7484,
+            "accuracy": 0.6737
+          },
+          {
+            "range": [
+              0.8,
+              0.9
+            ],
+            "count": 165,
+            "avg_confidence": 0.8487,
+            "accuracy": 0.697
+          },
+          {
+            "range": [
+              0.9,
+              1.0
+            ],
+            "count": 65,
+            "avg_confidence": 0.9306,
+            "accuracy": 0.6769
+          }
+        ]
+      },
+      "bootstrap_macro_f1": {
+        "point_estimate": 0.4641801928975947,
+        "ci_95_low": 0.43198955981654735,
+        "ci_95_high": 0.4961547018262297,
+        "n_bootstrap": 2000,
+        "bootstrap_std": 0.016829818570283216
+      }
+    },
     "resnet50": {
       "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
       "n_samples": 1119,
@@ -122,5 +243,20 @@
       }
     }
   },
-  "pairwise": {}
+  "pairwise": {
+    "efficientnet_b3_vs_resnet50": {
+      "mcnemar": {
+        "b_a_right_b_wrong": 175,
+        "c_a_wrong_b_right": 223,
+        "statistic": 5.550251256281407,
+        "p_value": 0.018478034303867297
+      },
+      "delong_normal_vs_abnormal": {
+        "auc_a": 0.7545681063122924,
+        "auc_b": 0.726568489649885,
+        "z": 1.926219601136175,
+        "p_value": 0.05407695934566226
+      }
+    }
+  }
 }

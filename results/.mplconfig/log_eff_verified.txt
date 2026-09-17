@@ -1,0 +1,30 @@
+Epoch 1/10 | train_loss=1.1618 | train_acc=0.4745 | train_f1=0.4734 | val_loss=1.1013 | val_acc=0.5255 | val_f1=0.4565
+Epoch 2/10 | train_loss=0.7815 | train_acc=0.6832 | train_f1=0.6833 | val_loss=1.0568 | val_acc=0.5371 | val_f1=0.4642
+Epoch 3/10 | train_loss=0.5734 | train_acc=0.7752 | train_f1=0.7736 | val_loss=1.1264 | val_acc=0.5880 | val_f1=0.4633
+Epoch 4/10 | train_loss=0.4585 | train_acc=0.8242 | train_f1=0.8226 | val_loss=1.1447 | val_acc=0.5836 | val_f1=0.4843
+Early stopping triggered at epoch 4. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: efficientnet_b3
+Device: mps
+Best checkpoint: results/checkpoints/final_efficientnet_b3_tuned_best.pth
+Curves plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_efficientnet_b3_tuned_best_curves.png
+Confusion matrix plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_efficientnet_b3_tuned_best_confusion_matrix.png
+Per-class report: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_efficientnet_b3_tuned_best_per_class.txt
+Per-class JSON: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_efficientnet_b3_tuned_best_per_class.json
+Results CSV: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/final_experiment_registry.csv
+Best epoch: 2
+Best val loss: 1.0568
+Best val acc: 0.5371
+Best val macro F1: 0.4642
+Final train loss: 0.4585
+Final train acc: 0.8242
+Final train macro F1: 0.8226
+Final val loss: 1.1447
+Final val acc: 0.5836
+Final val macro F1: 0.4843
+Best val confusion matrix:
+[318, 161, 49, 32]
+[89, 185, 17, 20]
+[23, 20, 69, 52]
+[12, 11, 32, 29]
