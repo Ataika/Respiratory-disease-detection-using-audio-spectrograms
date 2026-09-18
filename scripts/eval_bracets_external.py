@@ -43,6 +43,11 @@ CHECKPOINT = "results/checkpoints/final_resnet50_tuned_best.pth"
 OUT_DIR = PROJECT_ROOT / "results" / "external"
 SAMPLE_RATE = 22050
 DURATION = 5.0
+DEVICE = (
+    "mps" if torch.backends.mps.is_available()
+    else "cuda" if torch.cuda.is_available()
+    else "cpu"
+)
 BINARY_NAMES = ["healthy", "pathological"]
 
 
@@ -51,6 +56,7 @@ def load_model() -> ResNetBaseline:
     state = torch.load(PROJECT_ROOT / CHECKPOINT, map_location="cpu")
     model.load_state_dict(state)
     model.eval()
+    model.to(DEVICE)
     return model
 
 
@@ -76,13 +82,13 @@ def main() -> None:
                 duration=DURATION,
                 sample_rate=SAMPLE_RATE,
                 branch="cnn",
-            ).unsqueeze(0)
+            ).unsqueeze(0).to(DEVICE)
         except Exception as exc:  # skip unreadable files, keep eval robust
             print(f"  skip {rec['wav_path']}: {exc}", flush=True)
             continue
 
         with torch.no_grad():
-            probs = F.softmax(model(x), dim=1)[0]
+            probs = F.softmax(model(x), dim=1)[0].cpu()
         pred4 = int(probs.argmax().item())
         pred_bin = 0 if pred4 == 0 else 1
         p_abnormal = float(1.0 - probs[0].item())

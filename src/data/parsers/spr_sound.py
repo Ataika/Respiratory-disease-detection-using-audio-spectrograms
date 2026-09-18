@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 
 SPR_LABEL_MAP = {
@@ -23,13 +26,27 @@ SPR_LABEL_MAP = {
 def _normalize_spr_label(raw_label: str) -> int | None:
     """
     Normalize SPRSound annotation into the unified label scheme.
+
+    Returns None (record skipped by the caller) for "poor quality" and
+    for any annotation string not in SPR_LABEL_MAP, rather than silently
+    defaulting to "normal" — an unrecognized label (typo, casing
+    variant, or a category this map hasn't seen yet) is not evidence the
+    recording is actually normal, and defaulting it that way would
+    quietly corrupt ground truth for cross-domain evaluation metrics.
     """
     label = raw_label.strip().lower()
 
     if label == "poor quality":
         return None
 
-    return SPR_LABEL_MAP.get(label, 0)
+    if label not in SPR_LABEL_MAP:
+        logger.warning(
+            "SPRSound: unrecognized record_annotation %r, skipping record "
+            "(known labels: %s)", raw_label, sorted(SPR_LABEL_MAP)
+        )
+        return None
+
+    return SPR_LABEL_MAP[label]
 
 
 def parse_spr_sound(dataset_path: str | Path) -> list[dict]:

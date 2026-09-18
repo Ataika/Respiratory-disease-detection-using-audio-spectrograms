@@ -2,45 +2,45 @@
   "model_name": "audiomae",
   "checkpoint_path": "results/checkpoints/final_audiomae_no_sampler_best.pth",
   "evaluation_epoch": 3,
-  "best_val_loss": 0.9447208183590353,
-  "best_val_acc": 0.5907059874888293,
-  "best_val_macro_f1": 0.48375992396699496,
+  "best_val_loss": 1.160989794510619,
+  "best_val_acc": 0.48078641644325293,
+  "best_val_macro_f1": 0.2349620651460051,
   "classification_report": {
     "normal": {
-      "precision": 0.6551204819277109,
-      "recall": 0.7767857142857143,
-      "f1-score": 0.7107843137254902,
+      "precision": 0.5293427230046949,
+      "recall": 0.8053571428571429,
+      "f1-score": 0.6388101983002833,
       "support": 560.0
     },
     "crackle": {
-      "precision": 0.5466101694915254,
-      "recall": 0.41479099678456594,
-      "f1-score": 0.4716636197440585,
+      "precision": 0.3258426966292135,
+      "recall": 0.2797427652733119,
+      "f1-score": 0.30103806228373703,
       "support": 311.0
     },
     "wheeze": {
-      "precision": 0.5620437956204379,
-      "recall": 0.4695121951219512,
-      "f1-score": 0.5116279069767442,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
       "support": 164.0
     },
     "both": {
-      "precision": 0.24390243902439024,
-      "recall": 0.23809523809523808,
-      "f1-score": 0.24096385542168675,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
       "support": 84.0
     },
-    "accuracy": 0.5907059874888293,
+    "accuracy": 0.48078641644325293,
     "macro avg": {
-      "precision": 0.5019192215160162,
-      "recall": 0.4747960360718674,
-      "f1-score": 0.48375992396699496,
+      "precision": 0.2137963549084771,
+      "recall": 0.2712749770326137,
+      "f1-score": 0.2349620651460051,
       "support": 1119.0
     },
     "weighted avg": {
-      "precision": 0.5804523860153558,
-      "recall": 0.5907059874888293,
-      "f1-score": 0.5798700107473499,
+      "precision": 0.35546827840421313,
+      "recall": 0.48078641644325293,
+      "f1-score": 0.40335705846148423,
       "support": 1119.0
     }
   },
@@ -51,9 +51,9 @@
     "both": 84
   },
   "prediction_distribution": {
-    "normal": 664,
-    "crackle": 236,
-    "wheeze": 137,
-    "both": 82
+    "normal": 852,
+    "crackle": 267,
+    "wheeze": 0,
+    "both": 0
   }
 }

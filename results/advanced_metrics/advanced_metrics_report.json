@@ -4,9 +4,9 @@
       "checkpoint": "results/checkpoints/final_audiomae_no_sampler_best.pth",
       "n_samples": 1119,
       "icbhi_score": {
-        "sensitivity_se": 0.1556350626118068,
+        "sensitivity_se": 0.2826475849731664,
         "specificity_sp": 0.8053571428571429,
-        "icbhi_score": 0.48049610273447485
+        "icbhi_score": 0.5440023639151547
       },
       "auc_roc": {
         "macro_auc_ovr": 0.5708767609978206,
@@ -125,9 +125,9 @@
       "checkpoint": "results/checkpoints/final_efficientnet_b3_tuned_best.pth",
       "n_samples": 1119,
       "icbhi_score": {
-        "sensitivity_se": 0.5062611806797853,
+        "sensitivity_se": 0.778175313059034,
         "specificity_sp": 0.5678571428571428,
-        "icbhi_score": 0.5370591617684641
+        "icbhi_score": 0.6730162279580885
       },
       "auc_roc": {
         "macro_auc_ovr": 0.7772468796263112,
@@ -246,9 +246,9 @@
       "checkpoint": "results/checkpoints/final_resnet50_tuned_best.pth",
       "n_samples": 1119,
       "icbhi_score": {
-        "sensitivity_se": 0.407871198568873,
+        "sensitivity_se": 0.5885509838998211,
         "specificity_sp": 0.7517857142857143,
-        "icbhi_score": 0.5798284564272936
+        "icbhi_score": 0.6701683490927677
       },
       "auc_roc": {
         "macro_auc_ovr": 0.7429764375141468,

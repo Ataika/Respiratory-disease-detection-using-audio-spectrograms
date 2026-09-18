@@ -165,6 +165,17 @@ prior CNN-vs-transformer ICBHI studies while testing a self-supervised
 pretraining signal that is comparatively less explored on this dataset
 than supervised AST fine-tuning.
 
+> **Author's note on this justification.** The paragraph above is a
+> defensible technical rationale for the substitution, constructed
+> during later analysis — it is not a transcript of the reasoning at the
+> time the decision was made, which was not recorded in the project's
+> development journal. If asked in the defense *why* this substitution
+> happened, answer honestly (e.g., pretrained-weight availability,
+> practical convenience, or genuine interest in self-supervised
+> pretraining — whichever is actually true) rather than presenting this
+> paragraph as historical fact. Replace this note once the real
+> reasoning is confirmed.
+
 ## 3.7 Training procedure
 
 All models are trained with Adam (`lr=1e-4` for the CNNs, `lr=5e-5` for
@@ -180,9 +191,15 @@ evaluate an overfit model.
 
 CNN models are trained for up to 10 epochs with `batch_size=8`; AudioMAE
 for up to 8 epochs with `batch_size=4` (a smaller batch given its larger
-memory footprint) and weighted sampling disabled (Section 3.5's
-class-weighted-loss configuration was used for the AudioMAE branch
-instead).
+memory footprint) and weighted sampling disabled. Unlike both CNN
+configurations, **AudioMAE training uses neither weighted sampling nor
+class-weighted loss** — no class-imbalance handling was applied to this
+branch. This was not a deliberate ablation choice and is noted here as
+a methodological gap: it means AudioMAE's results (Section 4.4) are not
+directly comparable to the CNN "tuned" configuration on this dimension,
+and its performance may be partly confounded by imbalance rather than
+purely reflecting architecture. If time allows, re-running AudioMAE
+with weighted sampling enabled would remove this confound.
 
 ## 3.8 Evaluation protocol
 

@@ -14,6 +14,7 @@ from __future__ import annotations
 import csv
 import re
 import statistics
+from itertools import combinations
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -114,9 +115,17 @@ def main() -> None:
     ]
 
     conclusions = []
+    incomplete_models = []
     for model_name, model_rows in by_model.items():
         accs = [r["best_val_acc"] for r in model_rows if r["best_val_acc"] is not None]
         f1s = [r["best_val_f1"] for r in model_rows if r["best_val_f1"] is not None]
+        if not accs or not f1s:
+            # Every row for this model failed to parse a numeric field
+            # (e.g. a truncated/corrupted overnight log) — skip it rather
+            # than crash statistics.mean([]) and lose the whole report.
+            incomplete_models.append(model_name)
+            lines.append(f"| `{model_name}` | {len(model_rows)} | (no parseable rows) | | | |")
+            continue
         acc_mean, acc_std = statistics.mean(accs), statistics.pstdev(accs)
         f1_mean, f1_std = statistics.mean(f1s), statistics.pstdev(f1s)
         lines.append(
@@ -135,39 +144,46 @@ def main() -> None:
         "|---|---|---|---|---|",
     ]
     for row in sorted(rows, key=lambda r: (r["model_name"], r["seed"])):
+        acc_str = f"{row['best_val_acc']:.4f}" if row["best_val_acc"] is not None else "n/a"
+        f1_str = f"{row['best_val_f1']:.4f}" if row["best_val_f1"] is not None else "n/a"
         lines.append(
             f"| `{row['model_name']}` | {row['seed']} | {row['best_epoch']} | "
-            f"{row['best_val_acc']:.4f} | {row['best_val_f1']:.4f} |"
+            f"{acc_str} | {f1_str} |"
         )
 
     lines += ["", "## Честный вывод"]
-    if len(conclusions) == 2:
-        (m1, f1_a, std_a, min_a, max_a), (m2, f1_b, std_b, min_b, max_b) = conclusions
-        spread_a = max_a - min_a
-        spread_b = max_b - min_b
-        gap = abs(f1_a - f1_b)
+    # Pairwise, not hard-coded to exactly 2 models — this needs to keep
+    # working once a 3rd (or Nth) model's seeds land, not silently stop
+    # producing a conclusion the moment a 2-model assumption is violated.
+    if len(conclusions) >= 2:
+        for (m1, f1_a, std_a, min_a, max_a), (m2, f1_b, std_b, min_b, max_b) in combinations(conclusions, 2):
+            spread_a = max_a - min_a
+            spread_b = max_b - min_b
+            gap = abs(f1_a - f1_b)
+            wider = max(spread_a, spread_b)
+            lines.append(
+                f"- `{m1}` (разброс {spread_a:.4f}) vs `{m2}` (разброс "
+                f"{spread_b:.4f}), разница средних macro F1 = {gap:.4f} — "
+                + (
+                    "**разброс внутри модели больше или сопоставим с разницей "
+                    "между моделями, сравнение по одному прогону не выдержит "
+                    "проверки на устойчивость.**"
+                    if gap < wider else
+                    "разница между моделями превышает внутримодельный разброс, "
+                    "сравнение по средним значениям статистически осмысленно."
+                )
+            )
+    elif len(conclusions) == 1:
+        lines.append(
+            "- Только одна модель имеет multi-seed данные — сравнивать не с чем."
+        )
+    if incomplete_models:
         lines += [
             "",
-            f"- Разброс `macro F1` между seed внутри одной модели: "
-            f"`{m1}` — {spread_a:.4f}, `{m2}` — {spread_b:.4f}.",
-            f"- Разница средних `macro F1` между моделями: {gap:.4f}.",
+            f"**Не удалось посчитать mean/std для:** {', '.join(incomplete_models)} "
+            "— все логи этой модели либо отсутствуют, либо не содержат "
+            "распознаваемых числовых полей.",
         ]
-        wider = max(spread_a, spread_b)
-        if gap < wider:
-            lines.append(
-                "- **Разброс между seed одной модели больше (или сопоставим), "
-                "чем разница средних между моделями.** Это значит, что "
-                "заявление вида «модель X лучше модели Y» по одному "
-                "прогону не выдерживает проверки на устойчивость — "
-                "разница может объясняться случайной инициализацией, "
-                "а не архитектурой."
-            )
-        else:
-            lines.append(
-                "- Разница между моделями превышает внутримодельный "
-                "разброс — сравнение по средним значениям в этом случае "
-                "статистически осмысленно."
-            )
     if skipped:
         lines += ["", "## Пропущенные/повреждённые логи", ""]
         lines += [f"- `{s}`" for s in skipped]

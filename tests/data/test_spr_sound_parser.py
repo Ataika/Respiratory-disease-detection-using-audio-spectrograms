@@ -52,3 +52,27 @@ def test_normalize_spr_label_matches_unified_scheme():
     assert _normalize_spr_label("Wheeze") == 2
     assert _normalize_spr_label("Wheeze&Crackle") == 3
 
+
+def test_normalize_spr_label_skips_unrecognized_annotation_instead_of_defaulting_to_normal():
+    """An unrecognized annotation string must not silently become
+    ground-truth `normal` (label 0) — that would quietly corrupt
+    cross-domain evaluation metrics for a category this map hasn't seen.
+    """
+    assert _normalize_spr_label("Rhonchi") is None
+    assert _normalize_spr_label("Poor Quality") is None
+
+
+def test_parse_spr_sound_skips_records_with_unrecognized_annotation(tmp_path):
+    dataset_path = _build_spr_sound_fixture(tmp_path)
+    json_dir = dataset_path / "train_classification_json"
+    (dataset_path / "train_classification_wav" / "sample_004.wav").write_bytes(b"fake-wav")
+    (json_dir / "sample_004.json").write_text(
+        json.dumps({"record_annotation": "Rhonchi"}),
+        encoding="utf-8",
+    )
+
+    records = parse_spr_sound(dataset_path)
+
+    assert len(records) == 3  # sample_004 excluded, not mislabeled as normal
+    assert "sample_004" not in {r["recording_id"] for r in records}
+

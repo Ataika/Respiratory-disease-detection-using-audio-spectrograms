@@ -9,3 +9,4 @@ efficientnet_b3,0,1.0,0.9852,0.5318,0.4036,0.5339,0.4187,log_seed_eff_0.txt
 efficientnet_b3,1,2.0,1.1535,0.5178,0.4188,0.5135,0.4002,log_seed_eff_1.txt
 efficientnet_b3,2,1.0,0.8599,0.6385,0.3958,0.5826,0.4135,log_seed_efficientnet_b3_2.txt
 efficientnet_b3,3,2.0,1.1611,0.524,0.3538,0.5251,0.3232,log_seed_efficientnet_b3_3.txt
+audiomae,42,3.0,1.161,0.4808,0.235,0.4861,0.2606,log_audiomae_overnight_main.txt

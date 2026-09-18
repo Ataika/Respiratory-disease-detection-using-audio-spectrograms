@@ -2,12 +2,20 @@
 
 ## 4.1 Setup
 
-All final experiments run on an Apple Silicon Mac (MPS backend); early
-exploratory runs were on an 8 GB MacBook Air M1, which constrained batch
-size and motivated the Windows/CUDA fallback path documented in
-`docs/WINDOWS_SETUP.md` (not ultimately needed once migrated to a more
-capable machine). All reported numbers use the patient-level ICBHI
-validation split (seed 42, Section 3.8), 1,119 breathing cycles.
+Experiments in this thesis span two separate machines, which matters
+for interpreting Section 4.4.1 and should not be glossed over: the
+baseline comparison (4.2), the SpecAugment/class-weighted-loss ablation
+rows (4.3), and the five-seed robustness runs (4.5) were all run on an
+8 GB MacBook Air M1 (MPS backend), which also motivated the Windows/CUDA
+fallback path documented in `docs/WINDOWS_SETUP.md` (ultimately not
+needed). The "tuned" reference checkpoints for ResNet50 and
+EfficientNet-B3 (used in 4.3's reference row and 4.4's three-way table),
+the Grad-CAM and MC Dropout analyses (4.8, 4.9), and both cross-domain
+evaluations (4.6, 4.7) were re-run on a second, more capable Apple
+Silicon machine after a hardware migration. AudioMAE was trained on
+both machines independently, with substantially different outcomes —
+see 4.4.1. All reported numbers use the patient-level ICBHI validation
+split (seed 42, Section 3.8), 1,119 breathing cycles.
 
 ## 4.2 Baseline comparison: ResNet50 vs. EfficientNet-B3
 
@@ -36,7 +44,19 @@ SpecAugment):
 | class-weighted, no sampler | sampler → loss | 2 | 1.158 | 0.508 | 0.426 |
 | SpecAugment | + augmentation | 1 | 1.013 | 0.554 | 0.423 |
 
-Two findings from this table:
+**A caveat this table cannot avoid stating plainly**: the `tuned`
+reference row is from the post-migration machine (Section 4.1); the
+other two rows are from the original M1 runs and were not re-verified
+on the current hardware. Section 4.4.1 documents a case (AudioMAE)
+where the same configuration produced substantially different results
+across this exact machine change. The comparisons below should
+therefore be read as directionally informative rather than as a
+strictly controlled single-environment ablation — re-running the two
+un-verified configurations on current hardware would close this gap
+and is listed in Section 5.4 (Future Work) if not done before
+submission.
+
+Two findings from this table, read with that caveat in mind:
 
 **Weighted sampling outperforms class-weighted loss for this dataset.**
 An earlier hypothesis (recorded during development) was that combining
@@ -62,23 +82,49 @@ structural limitation in Section 4.11.
 
 | Model | Se | Sp | ICBHI Score | Macro F1 | AUC-ROC (macro OvR) | ECE |
 |---|---|---|---|---|---|---|
-| ResNet50 (tuned) | 0.408 | 0.752 | 0.580 | 0.458 | 0.743 | 0.190 |
-| EfficientNet-B3 (tuned) | 0.506 | 0.568 | 0.537 | 0.464 | 0.777 | 0.114 |
+| ResNet50 (tuned) | 0.589 | 0.752 | 0.670 | 0.458 | 0.743 | 0.190 |
+| EfficientNet-B3 (tuned) | 0.778 | 0.568 | 0.673 | 0.464 | 0.777 | 0.114 |
 | AudioMAE (no-sampler) | — | — | — | — | — | — |
+
+*(Se here is computed the way the official ICBHI convention defines
+it: a truly-abnormal cycle predicted as **any** of crackle/wheeze/both
+counts as a correct binary detection, independent of whether the
+specific 4-class subtype matches. An earlier draft of this script
+required the exact subtype to match, which understated Se for both
+models by roughly 0.15–0.27 — caught and fixed during a review pass
+before this number was treated as final; see the regression tests in
+`tests/scripts/test_compute_advanced_metrics.py`.)*
 
 **AudioMAE row intentionally left blank here** — see Section 4.4.1.
 
 The ResNet50/EfficientNet-B3 comparison itself already illustrates why
-a single headline metric is misleading: ResNet50 wins on ICBHI Score
-(higher specificity), EfficientNet-B3 wins on macro F1 and AUC-ROC
-(higher sensitivity, better overall discrimination), and pairwise
-McNemar's test on the same validation samples shows their error
-patterns *are* significantly different (p = 0.019) even though neither
-model is clearly "better" by every metric. DeLong's test on the binary
-abnormal-vs-normal AUC is borderline (p = 0.054) — consistent with, not
-contradicting, the multi-seed finding in Section 4.5 that a single-run
-comparison between these two architectures is close to the edge of
-statistical distinguishability.
+a single headline metric is misleading, though not quite the way an
+earlier draft of this table suggested: EfficientNet-B3 now leads on
+ICBHI Score too (0.673 vs. 0.670 — a near-tie, driven by a much higher
+Se offsetting its lower Sp), and still leads on macro F1 and AUC-ROC.
+ResNet50's only clear advantage is calibration (lower ECE, Section
+4.4's calibration note below). Pairwise McNemar's test on the same
+validation samples shows their error patterns *are* significantly
+different (p = 0.019) even though the two models are close on most
+headline numbers. DeLong's test on the binary abnormal-vs-normal AUC is
+borderline (p = 0.054) — consistent with, not contradicting, the
+multi-seed finding in Section 4.5 that a single-run comparison between
+these two architectures is close to the edge of statistical
+distinguishability.
+
+**Calibration.** ResNet50's reliability diagram
+(`results/advanced_metrics/resnet50_reliability_diagram.png`) shows the
+model is reasonably calibrated through most of the confidence range but
+becomes markedly overconfident in its highest-confidence bin: predictions
+with ~95% average confidence are correct only ~69% of the time.
+EfficientNet-B3's lower ECE (0.114 vs. 0.190) indicates it is the
+better-calibrated of the two — worth noting since it does *not* have
+the higher AUC-ROC or accuracy in every metric (Section 4.4), so
+calibration is an axis on which the two models are not ranked the same
+way as on discrimination.
+
+*[Figures: `results/advanced_metrics/resnet50_reliability_diagram.png`,
+`efficientnet_b3_reliability_diagram.png` — insert here.]*
 
 ### 4.4.1 A note on AudioMAE's status in this draft
 
@@ -146,11 +192,10 @@ binary via `{crackle, wheeze, both} → pathological`:
 An AUROC of 0.509 is statistically indistinguishable from chance
 (0.5): the model's confidence ranking of BRACETS recordings carries
 essentially no information about which are actually pathological. This
-is consistent with Kim et al. [R1]'s finding that respiratory-sound
-classifiers absorb recording-equipment- and protocol-specific acoustic
-signatures rather than clinically generalizable ones — quantified here
-directly across two fully independent datasets rather than across
-stethoscope types within one dataset, as in their study. Given the
+matches the equipment/protocol-shift mechanism described in Section
+2.4 [R1], here observed at a coarser grain — across two fully
+independent datasets rather than across stethoscope types within one
+dataset, as in that study. Given the
 scope limitation noted in Section 3.1.1 (training used ICBHI alone,
 despite two additional in-domain datasets being available in the
 pipeline), part of this collapse may also reflect narrow training
@@ -222,7 +267,8 @@ gets wrong most often.
 ## 4.10 Ablation summary
 
 Consolidating Sections 4.3–4.9 into a single view of what each design
-choice cost or bought, relative to the tuned ResNet50 reference:
+choice cost or bought, relative to the tuned ResNet50 reference. The
+first two rows carry the cross-environment caveat noted in Section 4.3.
 
 | Factor | Effect on macro F1 | Effect on cross-domain | Effect on interpretability/uncertainty |
 |---|---|---|---|
