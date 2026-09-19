@@ -30,3 +30,51 @@ Best val confusion matrix:
 [224, 87, 0, 0]
 [122, 42, 0, 0]
 [55, 29, 0, 0]
+Parsing ICBHI...
+Validation samples: 1119
+Model loaded on mps. branch=audiomae sr=16000 dur=10.0
+  processed 200/1119
+  processed 400/1119
+  processed 600/1119
+  processed 800/1119
+  processed 1000/1119
+
+Accuracy: 0.4808
+Saved predictions to /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/predictions/audiomae_no_sampler_val.npz
+Found 3 prediction cache(s): ['audiomae_no_sampler_val.npz', 'efficientnet_b3_tuned_val.npz', 'resnet50_tuned_val.npz']
+
+=== audiomae (audiomae_no_sampler_val.npz) ===
+  ICBHI Score: Se=0.2826 Sp=0.8054 Score=0.5440
+  Macro AUC-ROC (OvR): 0.5709
+  ECE: 0.0540
+  Macro F1: 0.2350 95% CI [0.2195, 0.2505]
+
+=== efficientnet_b3 (efficientnet_b3_tuned_val.npz) ===
+  ICBHI Score: Se=0.7782 Sp=0.5679 Score=0.6730
+  Macro AUC-ROC (OvR): 0.7772
+  ECE: 0.1139
+  Macro F1: 0.4642 95% CI [0.4320, 0.4962]
+
+=== resnet50 (resnet50_tuned_val.npz) ===
+  ICBHI Score: Se=0.5886 Sp=0.7518 Score=0.6702
+  Macro AUC-ROC (OvR): 0.7430
+  ECE: 0.1895
+  Macro F1: 0.4575 95% CI [0.4232, 0.4930]
+
+=== audiomae_vs_efficientnet_b3 ===
+  McNemar: b=181 c=244 p=0.0026
+  DeLong (normal-vs-abnormal AUC): AUC_a=0.6087 AUC_b=0.7546 z=-8.5204 p=0.0000
+
+=== audiomae_vs_resnet50 ===
+  McNemar: b=128 c=239 p=0.0000
+  DeLong (normal-vs-abnormal AUC): AUC_a=0.6087 AUC_b=0.7266 z=-6.0984 p=0.0000
+
+=== efficientnet_b3_vs_resnet50 ===
+  McNemar: b=175 c=223 p=0.0185
+  DeLong (normal-vs-abnormal AUC): AUC_a=0.7546 AUC_b=0.7266 z=1.9262 p=0.0541
+
+Full report written to /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/advanced_metrics/advanced_metrics_report.json
+Parsed 15 runs across 3 models.
+Wrote /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/multiseed_results.csv
+Wrote /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/MULTISEED_SUMMARY_RU.md
+ALL DONE Sat Sep 19 09:45:35 CEST 2026

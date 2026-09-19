@@ -121,23 +121,33 @@ ICBHI Score = (Se+Sp)/2, plus macro F1 (accuracy alone is not reported
 as a headline metric — consistent with why the design spec required
 macro F1 in the first place).
 
+**Update, resolved**: this table and the note below it are superseded
+by `thesis/chapters/04_experiments.md` Sections 4.4/4.4.1/4.5, which
+have the corrected numbers (an ICBHI Score calculation bug was found
+and fixed during QA — see that chapter for the full story) and the
+completed AudioMAE multi-seed results. Kept here only for the drafted
+citation-linked prose below, which is still current.
+
 | Model | Se | Sp | ICBHI Score | Macro F1 (single run) | Macro F1 (5-seed mean ± SD) | AUC-ROC (macro OvR) | ECE |
 |---|---|---|---|---|---|---|---|
-| ResNet50 (tuned) | 0.408 | 0.752 | 0.580 | 0.458 | 0.403 ± 0.040 | 0.743 | 0.190 |
-| EfficientNet-B3 (tuned) | 0.506 | 0.568 | 0.537 | 0.464 | 0.402 ± 0.028 | 0.777 | 0.114 |
-| AudioMAE (no-sampler) | [PENDING] | [PENDING] | [PENDING] | [PENDING] | not seed-tested (n=1) | [PENDING] | [PENDING] |
+| ResNet50 (tuned) | 0.589 | 0.752 | 0.670 | 0.458 | 0.403 ± 0.040 | 0.743 | 0.190 |
+| EfficientNet-B3 (tuned) | 0.778 | 0.568 | 0.673 | 0.464 | 0.402 ± 0.028 | 0.777 | 0.114 |
+| AudioMAE (no-sampler) | 0.283 | 0.805 | 0.544 | 0.235 | 0.334 ± 0.099 | 0.571 | 0.054 |
 
 95% bootstrap CI (macro F1, single run): ResNet50 [0.423, 0.493];
 EfficientNet-B3 [0.432, 0.496] — the two intervals overlap almost
 entirely, consistent with the multi-seed finding below.
 
-**Note the ICBHI Score vs macro F1 disagreement**: ResNet50 has the
-higher ICBHI Score (0.580 vs 0.537) because of much higher specificity
-(0.752 vs 0.568), while EfficientNet-B3 has higher sensitivity and higher
-macro F1. This is exactly the accuracy-vs-macro-F1 tension the design
-spec warned about, just one level up: **which single-number metric
-"wins" depends on which one you pick**, which is itself an argument for
-reporting the full table rather than a single headline number.
+**Note the ICBHI Score vs macro F1 disagreement**: EfficientNet-B3 now
+leads on *every* metric except calibration (ECE) — the earlier draft's
+claim that ResNet50 "wins" on ICBHI Score was the bug mentioned above,
+not a genuine finding. The real disagreement worth keeping in the text
+is between the two CNNs' near-identical ICBHI Scores (0.670 vs 0.673,
+effectively tied) despite very different Se/Sp balances — ResNet50
+trades sensitivity for specificity, EfficientNet-B3 does the reverse,
+and the composite metric hides that trade-off. That is itself the
+argument for reporting the full table rather than a single headline
+number, not the specific ranking claim the earlier draft made.
 
 ---
 
@@ -192,15 +202,19 @@ reporting the full table rather than a single headline number.
 
 ## 10. What's still needed before these can be finalized
 
-- Fill in the AudioMAE row/paragraphs once the verified retrain (running
-  now) produces a trustworthy checkpoint — do not backfill from the
-  quarantined checkpoint in `results/checkpoints/_quarantine_2026-09-16/`.
-- Section 5's justification paragraph is technically sound but not
-  verified against the student's actual memory of the decision — flag
-  this explicitly if asked in the defense, don't present it as historical
-  fact.
-- Once AudioMAE lands, extend the multi-seed table (Section 6) with at
-  least 2-3 AudioMAE seeds so the three-way model comparison rests on the
-  same evidentiary footing as ResNet50/EfficientNet-B3 — right now
-  AudioMAE would be the only architecture judged on a single run, which
-  section 8's own argument says not to trust.
+- **Done**: AudioMAE's full 5-seed run completed (results in Chapter 4
+  Sections 4.4/4.4.1/4.5). It resolved to a genuinely stronger finding
+  than "pending" — AudioMAE is not just weaker on average but ~3x less
+  stable across seeds than either CNN, with its worst seed collapsing to
+  zero recall on two of four classes. This changes the thesis's
+  headline claim (Section 1.3/Abstract need to reflect that the planned
+  "transformer wins" result did not hold up — see Chapter 4.4.1 for the
+  reframed contribution).
+- Section 5's AST-to-AudioMAE justification paragraph is technically
+  sound but not verified against the student's actual memory of the
+  decision — flag this explicitly if asked in the defense, don't
+  present it as historical fact (already flagged inline in Chapter 3
+  itself, not just here).
+- Chapter 1 (Introduction) contributions list and Chapter 5 (Conclusion)
+  still need writing, now that this result is final rather than
+  pending — see the writing plan for the recommended order.

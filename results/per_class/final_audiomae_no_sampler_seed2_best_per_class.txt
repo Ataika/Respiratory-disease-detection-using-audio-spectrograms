@@ -1,0 +1,31 @@
+Model: audiomae
+Checkpoint: results/checkpoints/final_audiomae_no_sampler_seed2_best.pth
+
+Evaluation epoch: 2
+Best val loss: 0.8586
+Best val acc: 0.6697
+Best val macro F1: 0.3552
+
+              precision    recall  f1-score   support
+
+      normal     0.7111    0.8649    0.7805       444
+     crackle     0.6935    0.4981    0.5798       259
+      wheeze     0.0476    0.0833    0.0606        24
+        both     0.0000    0.0000    0.0000        42
+
+    accuracy                         0.6697       769
+   macro avg     0.3631    0.3616    0.3552       769
+weighted avg     0.6457    0.6697    0.6478       769
+
+
+Target distribution:
+normal: 444
+crackle: 259
+wheeze: 24
+both: 42
+
+Prediction distribution:
+normal: 540
+crackle: 186
+wheeze: 42
+both: 1

@@ -1,0 +1,31 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Epoch 1/8 | train_loss=1.1234 | train_acc=0.5195 | train_f1=0.2263 | val_loss=1.0096 | val_acc=0.5111 | val_f1=0.2948
+Epoch 2/8 | train_loss=0.9536 | train_acc=0.5926 | train_f1=0.4333 | val_loss=0.8586 | val_acc=0.6697 | val_f1=0.3552
+Epoch 3/8 | train_loss=0.8019 | train_acc=0.6626 | train_f1=0.5410 | val_loss=0.9018 | val_acc=0.6099 | val_f1=0.3515
+Epoch 4/8 | train_loss=0.6878 | train_acc=0.7200 | train_f1=0.6153 | val_loss=1.0134 | val_acc=0.5956 | val_f1=0.3526
+Early stopping triggered at epoch 4. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: audiomae
+Device: mps
+Best checkpoint: results/checkpoints/final_audiomae_no_sampler_seed2_best.pth
+Curves plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_seed2_best_curves.png
+Confusion matrix plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_seed2_best_confusion_matrix.png
+Per-class report: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_seed2_best_per_class.txt
+Per-class JSON: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_seed2_best_per_class.json
+Results CSV: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/final_experiment_registry.csv
+Best epoch: 2
+Best val loss: 0.8586
+Best val acc: 0.6697
+Best val macro F1: 0.3552
+Final train loss: 0.6878
+Final train acc: 0.7200
+Final train macro F1: 0.6153
+Final val loss: 1.0134
+Final val acc: 0.5956
+Final val macro F1: 0.3526
+Best val confusion matrix:
+[384, 44, 16, 0]
+[121, 129, 9, 0]
+[20, 1, 2, 1]
+[15, 12, 15, 0]

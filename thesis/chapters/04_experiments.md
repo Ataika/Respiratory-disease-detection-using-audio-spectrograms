@@ -84,7 +84,7 @@ structural limitation in Section 4.11.
 |---|---|---|---|---|---|---|
 | ResNet50 (tuned) | 0.589 | 0.752 | 0.670 | 0.458 | 0.743 | 0.190 |
 | EfficientNet-B3 (tuned) | 0.778 | 0.568 | 0.673 | 0.464 | 0.777 | 0.114 |
-| AudioMAE (no-sampler) | — | — | — | — | — | — |
+| AudioMAE (no-sampler, seed 42) | 0.283 | 0.805 | 0.544 | 0.235 | 0.571 | 0.054 |
 
 *(Se here is computed the way the official ICBHI convention defines
 it: a truly-abnormal cycle predicted as **any** of crackle/wheeze/both
@@ -126,51 +126,97 @@ way as on discrimination.
 *[Figures: `results/advanced_metrics/resnet50_reliability_diagram.png`,
 `efficientnet_b3_reliability_diagram.png` — insert here.]*
 
-### 4.4.1 A note on AudioMAE's status in this draft
+### 4.4.1 AudioMAE: resolved, and the resolution is itself the finding
 
 The historical single training run for AudioMAE (June 2026, prior
 hardware) reported macro F1 = 0.484 — the best of the three
 architectures, and the headline "self-supervised transformer wins"
-result this thesis originally planned to report. After migrating to
-new hardware, two independent verified single-process retraining
-attempts (one interrupted mid-training, one allowed to run longer but
-still not confirmed to reach the historical best epoch) both produced
-substantially lower macro F1 (0.235–0.243). Given Section 4.5's own
-finding — that single-run comparisons between architectures are not
-trustworthy without a multi-seed check — it would be inconsistent to
-report either the old high number or the new low numbers as "the"
-AudioMAE result without first (a) confirming a fully-converged training
-run on the current hardware, and (b) running it across multiple seeds,
-exactly as was done for ResNet50/EfficientNet-B3. **This is left as an
-open item, not silently resolved in either direction** — see Section
-5.3 (Limitations) if it is not closed before submission.
+result this thesis originally planned to report. That number does not
+replicate. A full 5-seed run on current hardware (identical protocol to
+Section 4.5) gives:
+
+| | mean ± SD | min | max |
+|---|---|---|---|
+| AudioMAE macro F1 | 0.334 ± 0.099 | 0.202 | 0.441 |
+
+Two things follow. First, the historical 0.484 was never reproduced by
+any of the five seeds tested here — the closest is seed 1 at 0.441,
+still below it, suggesting the original run may itself have been an
+even more favorable draw than this seed range captured, or reflects a
+difference in library versions between the two machines that was not
+otherwise controlled for. Second, and more importantly: **AudioMAE's
+seed-to-seed standard deviation (0.099) is roughly 2.5–3.5x larger than
+either CNN's (ResNet50 0.040, EfficientNet-B3 0.028, Section 4.5)**.
+This is not just "AudioMAE performs worse on average" — it is
+categorically less reliable, with performance ranging from a near-total
+class collapse (seed 3: macro F1 0.202) to competitive-with-the-CNNs
+(seed 1: 0.441) purely as a function of random initialization. The
+seed-42 checkpoint used in Table 4.4's row above (macro F1 0.235) shows
+this collapse concretely: **zero recall on both `wheeze` and `both`** —
+the model predicts only `normal` or `crackle` for every validation
+sample, regardless of true class.
+
+Pairwise tests (same validation samples) confirm AudioMAE's
+seed-42 checkpoint is significantly worse than both CNNs, not just
+different: McNemar p < 0.001 against both ResNet50 and
+EfficientNet-B3, and DeLong's test on the binary normal-vs-abnormal AUC
+gives p < 10⁻⁹ for both comparisons (AudioMAE AUC 0.609 vs. ResNet50
+0.727, EfficientNet-B3 0.755).
+
+**What this means for the thesis's original framing**: the planned
+headline result — "a self-supervised transformer outperforms supervised
+CNNs" — is not supported. The evidence instead supports a different,
+arguably more useful claim: *architecture choice interacts with
+initialization variance in ways that a single training run cannot
+detect*, and for this specific self-supervised transformer on this
+dataset size, that interaction is severe enough to occasionally produce
+a non-functional classifier. Given the class-imbalance-handling gap
+noted in Section 3.7 (AudioMAE trained with neither weighted sampling
+nor class-weighted loss, unlike both CNNs), some of this instability is
+plausibly a confound rather than a pure architecture effect — a
+question for Future Work (Section 5.4) rather than one this thesis
+can close given the remaining time budget.
 
 ## 4.5 Robustness: multi-seed analysis
 
-Five independent seeds (42, 0, 1, 2, 3) for both ResNet50 and
-EfficientNet-B3, all other hyperparameters fixed:
+Five independent seeds (42, 0, 1, 2, 3) for all three architectures,
+all other hyperparameters fixed:
 
 | Model | n | Val macro F1 (mean ± SD) | Min | Max |
 |---|---|---|---|---|
 | ResNet50 | 5 | 0.403 ± 0.040 | 0.361 | 0.460 |
 | EfficientNet-B3 | 5 | 0.402 ± 0.028 | 0.354 | 0.437 |
+| AudioMAE | 5 | 0.334 ± 0.099 | 0.202 | 0.441 |
 
-The seed-to-seed spread within a single architecture (0.028–0.040) is
-comparable to, and in ResNet50's case larger than, the entire gap
-between the two architectures' means (Δ = 0.001). Framed against the
-literature: Polanco-Martagón et al. [R2] explicitly flag the absence of
-a variance analysis as a limitation of their own five-CNN comparison on
-this same task family, citing computational cost. This result
-demonstrates concretely what that absence risks — a single favorable or
-unfavorable seed could flip which architecture appears to "win" a
-head-to-head comparison, independent of any real architectural
-advantage.
+The seed-to-seed spread within a single CNN architecture (0.028–0.040)
+is comparable to, and in ResNet50's case larger than, the entire gap
+between the two CNNs' means (Δ = 0.001). Framed against the literature:
+Polanco-Martagón et al. [R2] explicitly flag the absence of a variance
+analysis as a limitation of their own five-CNN comparison on this same
+task family, citing computational cost. This result demonstrates
+concretely what that absence risks — a single favorable or unfavorable
+seed could flip which architecture appears to "win" a head-to-head
+comparison, independent of any real architectural advantage.
 
-*(Note on seeding validity: `--seed` previously only controlled the
-patient-level train/val split, not `torch.manual_seed()` — meaning even
-the same seed value wasn't fully reproducible in the original runs.
-This was fixed (Section 3.7); the five seeds above are the original,
-pre-fix runs, so they reflect genuine independent randomness across
+AudioMAE's spread (0.099) is not just larger — it is 2.5–3.5x either
+CNN's, and this is the *more* conservative comparison, not a less
+fair one: AudioMAE's five runs used a fully corrected seed (Section
+3.7's `torch.manual_seed` fix applied), meaning every source of
+run-to-run randomness was pinned by the seed value, whereas the
+ResNet50/EfficientNet-B3 numbers above are the original, pre-fix runs
+with *additional*, uncontrolled randomness beyond the split (model
+init, sampler draws, SpecAugment masks). AudioMAE shows nearly 3x the
+variance of the CNNs **despite having strictly less uncontrolled
+randomness to produce it** — the instability is a property of the
+architecture/training configuration, not an artifact of looser
+seeding. Full discussion in Section 4.4.1.
+
+*(Note on seeding validity for the CNN rows specifically: `--seed`
+previously only controlled the patient-level train/val split, not
+`torch.manual_seed()` — meaning even the same seed value wasn't fully
+reproducible in the original CNN runs. This was fixed (Section 3.7)
+before the AudioMAE seeds above were run; the CNN five-seed numbers
+predate the fix, so they reflect genuine independent randomness across
 model init, sampler draws, and SpecAugment masks in addition to split
 composition — if anything a *more* honest robustness check than a
 "cleaner" experiment would have been, since it captures more of the
@@ -274,7 +320,9 @@ first two rows carry the cross-environment caveat noted in Section 4.3.
 |---|---|---|---|
 | Weighted sampler → class-weighted loss | −0.032 | not tested | not tested |
 | + SpecAugment | −0.035 (but +accuracy) | not tested | not tested |
-| Architecture (EfficientNet-B3 vs. ResNet50) | +0.006 (not significant, Section 4.5) | not tested on EfficientNet-B3 | not tested on EfficientNet-B3 |
+| Architecture: EfficientNet-B3 vs. ResNet50 | +0.006 mean (not significant, Section 4.5) | not tested on EfficientNet-B3 | not tested on EfficientNet-B3 |
+| Architecture: AudioMAE vs. either CNN | −0.07 mean, but 2.5–3.5x the seed variance (Section 4.4.1) | not tested on AudioMAE | not tested on AudioMAE |
+| No imbalance handling (AudioMAE only, Section 3.7) | confounded with the row above | — | — |
 | Zero-shot BRACETS transfer | n/a | AUROC 0.509 (chance) | — |
 | Zero-shot SPRSound transfer | n/a | Macro F1 0.187 (worse) | — |
 | MC Dropout | n/a | n/a | Entropy gap 0.527 vs. 0.645 (informative) |
@@ -291,12 +339,19 @@ of architecture, tuning configuration, or evaluation dataset:
    with it having the smallest support in the training data (84 of
    1,119 validation samples) rather than being an inherently harder
    acoustic pattern.
-2. **Single-run comparisons are not trustworthy on this dataset.** The
-   multi-seed spread (Section 4.5) exceeds the architecture gap it would
-   otherwise be used to explain, and the AudioMAE reproducibility issue
-   (Section 4.4.1) is a direct, if unplanned, demonstration of the same
-   point at the level of an entire training run rather than just a
-   seed.
+2. **Single-run comparisons are not trustworthy on this dataset — and
+   the failure mode gets worse, not better, with a more sophisticated
+   architecture.** The CNN multi-seed spread (Section 4.5) already
+   exceeds the gap between ResNet50 and EfficientNet-B3. AudioMAE goes
+   further: its seed-to-seed variance is 2.5–3.5x either CNN's, despite
+   being measured under *more* controlled seeding (Section 4.5's note),
+   and its worst seed collapses to zero recall on two of four classes
+   (Section 4.4.1). The thesis's original planned headline — a
+   self-supervised transformer beating supervised CNNs — does not survive
+   this check; what survives instead is a stronger, more general claim:
+   architecture sophistication does not imply training stability, and a
+   single favorable run can make an unstable model look like a
+   breakthrough.
 3. **In-domain performance says nothing about cross-domain
    performance.** A model with respectable in-domain macro F1 (0.458)
    collapses to nothing distinguishable from chance (BRACETS) or worse

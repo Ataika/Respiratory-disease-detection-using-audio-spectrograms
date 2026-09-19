@@ -1,1 +1,32 @@
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Epoch 1/8 | train_loss=1.0663 | train_acc=0.5563 | train_f1=0.2645 | val_loss=1.0494 | val_acc=0.4573 | val_f1=0.2413
+Epoch 2/8 | train_loss=0.8705 | train_acc=0.6232 | train_f1=0.4497 | val_loss=1.0053 | val_acc=0.5664 | val_f1=0.4679
+Epoch 3/8 | train_loss=0.7218 | train_acc=0.7069 | train_f1=0.5927 | val_loss=0.9631 | val_acc=0.5671 | val_f1=0.4355
+Epoch 4/8 | train_loss=0.5676 | train_acc=0.7827 | train_f1=0.7023 | val_loss=1.2310 | val_acc=0.5366 | val_f1=0.4168
+Epoch 5/8 | train_loss=0.4298 | train_acc=0.8401 | train_f1=0.7766 | val_loss=1.1795 | val_acc=0.5732 | val_f1=0.4236
+Early stopping triggered at epoch 5. No validation loss improvement for 2 consecutive epochs.
+
+Training finished.
+Model: audiomae
+Device: mps
+Best checkpoint: results/checkpoints/final_audiomae_no_sampler_seed0_best.pth
+Curves plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_seed0_best_curves.png
+Confusion matrix plot: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/figures/final_audiomae_no_sampler_seed0_best_confusion_matrix.png
+Per-class report: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_seed0_best_per_class.txt
+Per-class JSON: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/per_class/final_audiomae_no_sampler_seed0_best_per_class.json
+Results CSV: /Users/ataika/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Thesis Diploma/Respiratory-disease-detection-using-audio-spectrograms/results/final_experiment_registry.csv
+Best epoch: 3
+Best val loss: 0.9631
+Best val acc: 0.5671
+Best val macro F1: 0.4355
+Final train loss: 0.4298
+Final train acc: 0.8401
+Final train macro F1: 0.7766
+Final val loss: 1.1795
+Final val acc: 0.5732
+Final val macro F1: 0.4236
+Best val confusion matrix:
+[410, 195, 17, 21]
+[218, 377, 2, 19]
+[62, 3, 26, 62]
+[26, 11, 3, 24]
